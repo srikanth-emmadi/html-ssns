@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sree Shanthi Nagar Society</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════════════════════════ */
+:root{
+  --sf:#e8650a; --sf2:#f07d30; --sf-l:#fff3eb;
+  --em:#0a7a4a; --em2:#0d9658; --em-l:#e8f7ef;
+  --go:#c9972a; --go2:#e8b84b; --go-l:#fdf6e3;
+  --nv:#0d1f3c; --nv2:#162d52; --nv3:#1e3d6e;
+  --cr:#fdf9f3; --wh:#ffffff;
+  --tx:#1a1a2e; --tx2:#4a5568; --tx3:#94a3b8;
+  --bd:#e2e8f0; --bd2:#cbd5e0;
+  --rd:#dc2626; --rd-l:#fef2f2;
+  --s1:0 1px 4px rgba(0,0,0,.07);
+  --s2:0 4px 16px rgba(0,0,0,.10);
+  --s3:0 12px 40px rgba(0,0,0,.14);
+  --s4:0 24px 64px rgba(0,0,0,.18);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--cr);color:var(--tx);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+button,input,select{font-family:inherit}
+a{text-decoration:none;color:inherit}
+
+/* ══════════════════════════════════════════════════════════
+   PAGE SYSTEM
+══════════════════════════════════════════════════════════ */
+.page{display:none!important}
+.page.on{display:block!important;animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.3)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══════════════════════════════════════════════════════════
+   BUTTONS
+══════════════════════════════════════════════════════════ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:9px 20px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;border:none;transition:all .2s;line-height:1;white-space:nowrap}
+.btn:active{transform:translateY(1px)!important}
+.btn-sf{background:linear-gradient(135deg,var(--sf),#c4550a);color:#fff;box-shadow:0 4px 14px rgba(232,101,10,.3)}
+.btn-sf:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(232,101,10,.4)}
+.btn-em{background:linear-gradient(135deg,var(--em),#065f36);color:#fff;box-shadow:0 4px 14px rgba(10,122,74,.25)}
+.btn-em:hover{transform:translateY(-2px)}
+.btn-gh{background:transparent;color:var(--tx2);border:1.5px solid var(--bd2)}
+.btn-gh:hover{background:#f1f5f9;color:var(--tx)}
+.btn-rd{background:var(--rd-l);color:var(--rd);border:1px solid #fca5a5}
+.btn-rd:hover{background:#fee2e2}
+.btn-sm{padding:6px 13px;font-size:12px}
+.btn-lg{padding:13px 30px;font-size:15px}
+.btn-w{width:100%;justify-content:center}
+
+/* ══════════════════════════════════════════════════════════
+   FORM
+══════════════════════════════════════════════════════════ */
+.fg{display:flex;flex-direction:column;gap:5px}
+.fl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--tx3)}
+.fi{background:#f8fafc;border:1.5px solid var(--bd);border-radius:8px;padding:9px 12px;font-size:13px;color:var(--tx);outline:none;transition:all .2s;width:100%}
+.fi:focus{border-color:var(--sf);box-shadow:0 0 0 3px rgba(232,101,10,.1)}
+.fi.err{border-color:var(--rd);box-shadow:0 0 0 3px rgba(220,38,38,.09)}
+.fi.ok{border-color:var(--em)}
+.fi::placeholder{color:var(--tx3)}
+.fh{font-size:11px;min-height:15px}
+.fh-e{color:var(--rd)}.fh-o{color:var(--em)}.fh-i{color:var(--tx3)}
+.iw{position:relative}
+.pc{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:10px;font-family:'JetBrains Mono',monospace;pointer-events:none;color:var(--tx3);transition:color .2s}
+
+/* ══════════════════════════════════════════════════════════
+   HOMEPAGE NAVBAR
+══════════════════════════════════════════════════════════ */
+#nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 40px;height:66px;display:flex;align-items:center;justify-content:space-between;transition:all .3s}
+#nav.tr{background:transparent}
+#nav.sc{background:rgba(255,255,255,.97);backdrop-filter:blur(16px);box-shadow:var(--s2)}
+.nb{display:flex;align-items:center;gap:11px}
+.nl{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--sf),var(--go));display:grid;place-items:center;font-size:17px;box-shadow:0 4px 12px rgba(232,101,10,.3)}
+.nn{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;line-height:1.2}
+.nn small{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:500;letter-spacing:.3px;font-style:normal}
+#nav.tr .nn{color:#fff}
+#nav.tr .nn small{color:rgba(255,255,255,.55)}
+#nav.sc .nn{color:var(--tx)}
+#nav.sc .nn small{color:var(--tx3)}
+.nlinks{display:flex;align-items:center;gap:3px}
+.nl2{padding:7px 13px;border-radius:7px;font-size:13px;font-weight:500;cursor:pointer;transition:all .15s}
+#nav.tr .nl2{color:rgba(255,255,255,.75)}
+#nav.tr .nl2:hover{background:rgba(255,255,255,.12);color:#fff}
+#nav.sc .nl2{color:var(--tx2)}
+#nav.sc .nl2:hover{background:#f1f5f9;color:var(--tx)}
+
+/* ══════════════════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════════════════ */
+.hero{min-height:100vh;background:linear-gradient(160deg,#0d1f3c 0%,#1a3a6e 45%,#0a7a4a 100%);position:relative;display:flex;align-items:center;overflow:hidden}
+.hp{position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(232,101,10,.16) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(10,122,74,.2) 0%,transparent 50%),radial-gradient(circle at 60% 80%,rgba(201,151,42,.12) 0%,transparent 40%);pointer-events:none}
+.hg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.hc{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:120px 40px 80px;display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;width:100%}
+.hbadge{display:inline-flex;align-items:center;gap:7px;background:rgba(232,101,10,.2);border:1px solid rgba(232,101,10,.4);border-radius:100px;padding:5px 14px;font-size:11px;font-weight:600;color:#f9b07a;letter-spacing:.4px;margin-bottom:20px}
+.hbdot{width:7px;height:7px;border-radius:50%;background:var(--sf2);animation:pulse 2s infinite}
+.htitle{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:#fff;line-height:1.1;margin-bottom:12px}
+.hhi{color:var(--go2);font-style:italic}
+.hsub{font-size:15px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:30px;max-width:480px}
+.hact{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:36px}
+.hout{background:rgba(255,255,255,.1);color:#fff;border:1.5px solid rgba(255,255,255,.25)}
+.hout:hover{background:rgba(255,255,255,.17)}
+.hstats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hstat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:13px;padding:16px;backdrop-filter:blur(8px)}
+.hsv{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:#fff;line-height:1}
+.hsl{font-size:11px;color:rgba(255,255,255,.5);margin-top:3px;font-weight:500}
+/* hero card */
+.hcard{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:28px;backdrop-filter:blur(16px)}
+.hct{font-family:'Playfair Display',serif;font-size:19px;color:#fff;margin-bottom:16px}
+.lstep{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.lstep:last-child{border-bottom:none}
+.lsn{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--sf),var(--go));display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.lstep strong{display:block;color:#fff;font-size:13px;margin-bottom:1px}
+.lstep span{color:rgba(255,255,255,.5);font-size:11px}
+
+/* ══════════════════════════════════════════════════════════
+   HOME SECTIONS
+══════════════════════════════════════════════════════════ */
+.sec{padding:80px 40px}
+.sw{background:var(--wh)}.ss{background:#f8fafc}.sf-l-bg{background:var(--sf-l);border-top:1px solid rgba(232,101,10,.15);border-bottom:1px solid rgba(232,101,10,.15)}
+.si{max-width:1200px;margin:0 auto}
+.stag{display:inline-block;background:var(--sf-l);color:var(--sf);border:1px solid rgba(232,101,10,.2);border-radius:100px;padding:4px 13px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+.sti{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;line-height:1.2;margin-bottom:10px}
+.ssu{font-size:14px;color:var(--tx2);line-height:1.7;max-width:560px}
+/* about */
+.agrid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-top:44px}
+.vi{display:flex;gap:13px;margin-bottom:22px;align-items:flex-start}
+.vic{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;font-size:18px;flex-shrink:0}
+.vc-sf{background:var(--sf-l)}.vc-em{background:var(--em-l)}.vc-go{background:var(--go-l)}
+.vt{font-weight:700;font-size:14px;margin-bottom:2px}
+.vd{font-size:12px;color:var(--tx2);line-height:1.6}
+.aimg{background:linear-gradient(135deg,var(--nv),var(--nv3));border-radius:20px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative}
+.aib{font-size:110px;opacity:.1;user-select:none}
+.aic{position:absolute;font-size:58px;filter:drop-shadow(0 4px 20px rgba(232,101,10,.5))}
+.afb{position:absolute;bottom:-14px;right:-14px;background:var(--wh);border-radius:13px;padding:13px 16px;box-shadow:var(--s3);display:flex;align-items:center;gap:10px;border:1px solid var(--bd)}
+.afb strong{display:block;font-size:18px;font-weight:700;color:var(--sf)}
+.afb span{font-size:10px;color:var(--tx3);font-weight:500}
+/* stats band */
+.sband{background:linear-gradient(135deg,var(--nv),var(--nv3));padding:56px 40px}
+.sbg{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.sbi{text-align:center;color:#fff}
+.sbv{font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:var(--go2);line-height:1}
+.sbl{font-size:12px;color:rgba(255,255,255,.55);margin-top:5px;font-weight:500}
+/* how */
+.howg{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:44px}
+.hwc{background:#f8fafc;border:1px solid var(--bd);border-radius:16px;padding:26px 22px;position:relative;overflow:hidden;transition:all .2s}
+.hwc:hover{border-color:var(--sf);box-shadow:var(--s3);transform:translateY(-4px)}
+.hwc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.hw1::before{background:linear-gradient(90deg,var(--sf),var(--go))}
+.hw2::before{background:linear-gradient(90deg,var(--em),#22c55e)}
+.hw3::before{background:linear-gradient(90deg,var(--nv3),var(--sf))}
+.hwn{font-family:'Playfair Display',serif;font-size:44px;font-weight:700;color:var(--bd2);line-height:1;margin-bottom:12px}
+.hwi{font-size:28px;margin-bottom:8px}
+.hwt{font-size:15px;font-weight:700;margin-bottom:6px}
+.hwd{font-size:12px;color:var(--tx2);line-height:1.7}
+/* committee */
+.cmg{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:40px}
+.cmc{background:var(--wh);border:1px solid var(--bd);border-radius:16px;padding:24px 18px;text-align:center;transition:all .2s;box-shadow:var(--s1)}
+.cmc:hover{transform:translateY(-4px);box-shadow:var(--s3);border-color:var(--sf)}
+.cmav{width:66px;height:66px;border-radius:50%;margin:0 auto 12px;display:grid;place-items:center;font-size:22px;font-weight:700;color:#fff}
+.cmr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--sf);margin-bottom:4px}
+.cmn{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;margin-bottom:3px}
+.cmp{font-size:11px;color:var(--tx3);font-family:'JetBrains Mono',monospace}
+/* notices */
+.nlist{margin-top:30px;display:flex;flex-direction:column;gap:10px}
+.nitem{background:var(--wh);border:1px solid var(--bd);border-radius:11px;padding:14px 18px;display:flex;align-items:flex-start;gap:12px;box-shadow:var(--s1)}
+.ndot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.nd-new{background:var(--sf);box-shadow:0 0 8px rgba(232,101,10,.5)}.nd-info{background:var(--em)}
+.ntit{font-weight:600;font-size:13px;margin-bottom:2px}
+.ndt{font-size:11px;color:var(--tx3)}
+/* contact */
+.csec{background:var(--nv);padding:70px 40px}
+.cg{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.ct{font-family:'Playfair Display',serif;font-size:32px;color:#fff;margin-bottom:12px}
+.csu{color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:26px;font-size:14px}
+.cd{display:flex;gap:12px;margin-bottom:16px;align-items:flex-start}
+.cdi{width:38px;height:38px;border-radius:9px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:grid;place-items:center;font-size:14px;flex-shrink:0}
+.cd strong{display:block;color:#fff;font-size:13px;margin-bottom:1px}
+.cd span{color:rgba(255,255,255,.5);font-size:12px}
+.ccard{background:var(--wh);border-radius:20px;padding:30px;box-shadow:var(--s4)}
+footer{background:#0a1628;padding:24px 40px;text-align:center;color:rgba(255,255,255,.35);font-size:12px;border-top:1px solid rgba(255,255,255,.06)}
+footer strong{color:rgba(255,255,255,.6)}
+
+/* ══════════════════════════════════════════════════════════
+   LOGIN PAGE
+══════════════════════════════════════════════════════════ */
+.lpg{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden;background:linear-gradient(160deg,#0d1f3c,#162d52 50%,#0a7a4a)}
+.lpg::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 80%,rgba(232,101,10,.2) 0%,transparent 40%),radial-gradient(circle at 80% 20%,rgba(10,122,74,.2) 0%,transparent 40%);pointer-events:none}
+.lbox{background:#fff;border-radius:22px;padding:40px;width:100%;max-width:410px;position:relative;z-index:2;box-shadow:0 32px 80px rgba(0,0,0,.35);animation:slideUp .3s ease}
+.llogo{display:flex;align-items:center;gap:11px;margin-bottom:28px;justify-content:center}
+.lli{width:44px;height:44px;border-radius:11px;background:linear-gradient(135deg,var(--sf),var(--go));display:grid;place-items:center;font-size:20px;box-shadow:0 6px 16px rgba(232,101,10,.35)}
+.lln{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;line-height:1.25}
+.lls{font-size:10px;color:var(--tx3);font-weight:500}
+.ltit{font-family:'Playfair Display',serif;font-size:24px;text-align:center;margin-bottom:4px}
+.lsub{font-size:12px;color:var(--tx2);text-align:center;margin-bottom:24px}
+.ltabs{display:flex;background:#f8fafc;border-radius:9px;padding:3px;gap:3px;margin-bottom:20px}
+.ltab{flex:1;padding:7px;border-radius:7px;border:none;background:transparent;font-size:12px;font-weight:600;color:var(--tx3);cursor:pointer;transition:all .2s}
+.ltab.on{background:#fff;color:var(--sf);box-shadow:var(--s1)}
+.lerr{background:var(--rd-l);border:1px solid #fca5a5;border-radius:7px;padding:9px 12px;font-size:12px;color:var(--rd);margin-bottom:12px;display:none}
+.lerr.on{display:block}
+.lform{display:flex;flex-direction:column;gap:14px}
+.lhint{text-align:center;font-size:11px;color:var(--tx3);margin-top:14px}
+.lhint strong{color:var(--tx2)}
+.lback{text-align:center;margin-top:10px;font-size:12px;color:var(--sf);cursor:pointer;font-weight:600}
+.lback:hover{text-decoration:underline}
+.lgdemo{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:8px;padding:10px 13px;margin-top:12px;font-size:11px;color:#166534}
+.lgdemo strong{display:block;margin-bottom:4px;font-size:12px}
+.demo-row{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid rgba(0,0,0,.06)}
+.demo-row:last-child{border-bottom:none}
+
+/* ══════════════════════════════════════════════════════════
+   DASHBOARD SHELL
+══════════════════════════════════════════════════════════ */
+.dlayout{display:flex;min-height:100vh;background:#f8fafc}
+.dside{width:252px;background:var(--nv);flex-shrink:0;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:200}
+.dsh{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.08)}
+.dslo{display:flex;align-items:center;gap:9px}
+.dsli{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--sf),var(--go));display:grid;place-items:center;font-size:15px;flex-shrink:0;box-shadow:0 4px 10px rgba(232,101,10,.3)}
+.dslt{font-family:'Playfair Display',serif;font-size:13px;color:#fff;line-height:1.25}
+.dslt small{display:block;font-family:'Plus Jakarta Sans',sans-serif;font-size:9px;color:rgba(255,255,255,.38);font-weight:400;font-style:normal}
+.dsnav{flex:1;padding:12px 8px;overflow-y:auto}
+.nsl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.28);padding:7px 10px 4px}
+.ni{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:9px;color:rgba(255,255,255,.55);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;margin-bottom:2px;border:1px solid transparent}
+.ni:hover{background:rgba(255,255,255,.07);color:#fff}
+.ni.on{background:rgba(232,101,10,.18);color:#f9b07a;border-color:rgba(232,101,10,.28)}
+.nii{font-size:15px;flex-shrink:0;width:19px;text-align:center}
+.dsf{padding:12px 8px;border-top:1px solid rgba(255,255,255,.08)}
+.dsu{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:9px;background:rgba(255,255,255,.05);margin-bottom:3px}
+.dsuav{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.dsun{font-size:12px;font-weight:600;color:#fff;line-height:1.25}
+.dsur{font-size:9px;color:rgba(255,255,255,.38)}
+.dslo2{display:flex;align-items:center;gap:7px;padding:8px 11px;border-radius:8px;color:rgba(255,255,255,.38);font-size:12px;cursor:pointer;transition:all .15s}
+.dslo2:hover{background:rgba(220,38,38,.1);color:#f87171}
+.dmain{margin-left:252px;flex:1;display:flex;flex-direction:column;min-width:0}
+.dtop{background:var(--wh);border-bottom:1px solid var(--bd);padding:0 26px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:var(--s1)}
+.dtt{font-family:'Playfair Display',serif;font-size:18px;font-weight:600}
+.dtr{display:flex;align-items:center;gap:9px}
+.dpill{display:flex;align-items:center;gap:5px;background:#f8fafc;border:1px solid var(--bd);border-radius:100px;padding:4px 11px;font-size:11px;color:var(--tx2)}
+.dlive{width:6px;height:6px;border-radius:50%;background:var(--em);box-shadow:0 0 5px rgba(10,122,74,.5);animation:pulse 2s infinite}
+.dcont{padding:24px 26px;flex:1}
+
+/* ══════════════════════════════════════════════════════════
+   PANEL / CARDS
+══════════════════════════════════════════════════════════ */
+.panel{display:none}
+.panel.on{display:block;animation:fadeUp .3s ease}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px;margin-bottom:22px}
+.dc{background:var(--wh);border:1px solid var(--bd);border-radius:11px;padding:18px;position:relative;overflow:hidden;box-shadow:var(--s1);transition:all .2s}
+.dc:hover{border-color:var(--bd2);box-shadow:var(--s2);transform:translateY(-2px)}
+.dc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.dc-sf::before{background:linear-gradient(90deg,var(--sf),var(--go))}.dc-em::before{background:linear-gradient(90deg,var(--em),#22c55e)}.dc-nv::before{background:linear-gradient(90deg,var(--nv3),var(--sf))}.dc-go::before{background:linear-gradient(90deg,var(--go),var(--sf2))}
+.dcl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--tx3);margin-bottom:6px}
+.dcv{font-size:24px;font-weight:700;letter-spacing:-1px;line-height:1}
+.dcs{font-size:10px;color:var(--tx3);margin-top:4px}
+.dci{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:26px;opacity:.09}
+.pbox{background:var(--wh);border:1px solid var(--bd);border-radius:14px;box-shadow:var(--s1);overflow:hidden;margin-bottom:18px}
+.pbh{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;border-bottom:1px solid var(--bd);background:#f8fafc}
+.pbt{font-size:13px;font-weight:700;display:flex;align-items:center;gap:7px}
+.pbb{padding:18px}
+.tw{overflow-x:auto}
+.dt{width:100%;border-collapse:collapse;min-width:700px}
+.dt thead th{background:#f8fafc;padding:9px 13px;text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--tx3);font-weight:700;border-bottom:1px solid var(--bd);white-space:nowrap}
+.dt thead th:first-child{padding-left:16px}
+.dt tbody tr{border-bottom:1px solid var(--bd);transition:background .1s}
+.dt tbody tr:last-child{border-bottom:none}
+.dt tbody tr:hover{background:#f8fafc}
+.dt td{padding:10px 13px;font-size:12px;vertical-align:middle}
+.dt td:first-child{padding-left:16px}
+.mcell{display:flex;align-items:center;gap:9px}
+.mav{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.mn{font-weight:600;font-size:12px}
+.mi{font-size:9px;color:var(--tx3);font-family:'JetBrains Mono',monospace}
+.acell{display:flex;gap:4px}
+.ab{width:26px;height:26px;border-radius:6px;border:1px solid var(--bd2);background:#f8fafc;color:var(--tx2);cursor:pointer;display:grid;place-items:center;font-size:12px;transition:all .15s}
+.ab:hover{border-color:var(--sf);color:var(--sf);background:var(--sf-l)}
+.ab.del:hover{border-color:var(--rd);color:var(--rd);background:var(--rd-l)}
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 9px;border-radius:100px;font-size:10px;font-weight:700;border:1px solid}
+.ba{background:var(--em-l);color:var(--em);border-color:var(--em)}
+.bp{background:var(--go-l);color:var(--go);border-color:var(--go)}
+.bc{background:#f1f5f9;color:var(--tx3);border-color:var(--bd2)}
+/* year bar */
+.ybar{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:16px;background:var(--wh);border:1px solid var(--bd);border-radius:10px;padding:11px 14px;box-shadow:var(--s1)}
+.yl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--tx3);white-space:nowrap}
+.yt{padding:4px 13px;border-radius:6px;border:1px solid var(--bd2);background:#f8fafc;font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--tx2);cursor:pointer;transition:all .15s}
+.yt:hover{border-color:var(--sf);color:var(--sf)}
+.yt.on{background:var(--sf);border-color:var(--sf);color:#fff;font-weight:700}
+.ytadd{border-style:dashed;color:var(--tx3)}
+.ytadd:hover{border-color:var(--sf);color:var(--sf);background:var(--sf-l)}
+/* month btn */
+.mb{width:78px;min-height:42px;border-radius:7px;border:1px solid;cursor:pointer;font-family:inherit;transition:all .15s;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;padding:3px 4px}
+.mbs{font-size:8px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+.mba{font-size:10px;font-weight:600;font-family:'JetBrains Mono',monospace}
+.mbd{font-size:8px;opacity:.7}
+.mb.paid{background:var(--em-l);border-color:var(--em);color:var(--em)}
+.mb.partial{background:var(--go-l);border-color:var(--go);color:var(--go)}
+.mb.unpaid{background:#f8fafc;border-color:var(--bd2);color:var(--tx3)}
+.mb.unpaid:hover{border-color:var(--sf);color:var(--sf);background:var(--sf-l)}
+/* progress */
+.pw{display:flex;align-items:center;gap:7px;min-width:90px}
+.pt{flex:1;height:4px;background:var(--bd);border-radius:100px;overflow:hidden}
+.pf{height:100%;border-radius:100px;transition:width .4s}
+.pl{font-size:9px;color:var(--tx3);font-family:'JetBrains Mono',monospace;min-width:26px;text-align:right}
+.empty{text-align:center;padding:44px 20px;color:var(--tx3)}
+.empty-i{font-size:36px;margin-bottom:10px;opacity:.38}
+
+/* ══════════════════════════════════════════════════════════
+   MEMBER PORTAL SPECIFIC
+══════════════════════════════════════════════════════════ */
+.lcard{background:linear-gradient(135deg,#0d1f3c,#1e3d6e);border-radius:22px;padding:28px;color:#fff;margin-bottom:18px;position:relative;overflow:hidden}
+.lcard::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(232,101,10,.2) 0%,transparent 50%);pointer-events:none}
+.lca{font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:var(--go2);line-height:1;position:relative;z-index:1}
+.lcg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:20px;position:relative;z-index:1}
+.lcgl{font-size:9px;text-transform:uppercase;letter-spacing:.6px;color:rgba(255,255,255,.4);margin-bottom:3px}
+.lcgv{font-size:14px;font-weight:700;font-family:'JetBrains Mono',monospace}
+.emi-sec{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;background:var(--wh);border:1px solid var(--bd);border-radius:14px;padding:20px;margin-bottom:18px;box-shadow:var(--s1)}
+.ph-item{display:flex;align-items:center;gap:12px;background:var(--wh);border:1px solid var(--bd);border-radius:11px;padding:11px 14px;box-shadow:var(--s1)}
+.ph-m{width:44px;height:44px;border-radius:11px;display:grid;place-items:center;font-size:11px;font-weight:700;flex-shrink:0}
+.ph-m.paid{background:var(--em-l);color:var(--em)}
+.ph-m.partial{background:var(--go-l);color:var(--go)}
+.ph-m.unpaid{background:#f1f5f9;color:var(--tx3)}
+
+/* ══════════════════════════════════════════════════════════
+   MODAL
+══════════════════════════════════════════════════════════ */
+.mo{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(5px);z-index:800;align-items:center;justify-content:center;padding:16px}
+.mo.on{display:flex}
+.mbox{background:var(--wh);border-radius:20px;padding:28px;width:100%;max-width:480px;box-shadow:0 32px 80px rgba(0,0,0,.25);animation:slideUp .22s ease;max-height:90vh;overflow-y:auto}
+.mtit{font-family:'Playfair Display',serif;font-size:20px;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.mg .full{grid-column:1/-1}
+.mact{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}
+/* pay modal */
+.pmh{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px}
+.pmbadge{display:inline-flex;align-items:center;gap:4px;padding:3px 11px;border-radius:100px;font-size:10px;font-weight:700;border:1px solid;white-space:nowrap}
+.pb-paid{background:var(--em-l);border-color:var(--em);color:var(--em)}
+.pb-partial{background:var(--go-l);border-color:var(--go);color:var(--go)}
+.pb-unpaid{background:#f8fafc;border-color:var(--bd2);color:var(--tx3)}
+.psum{background:#f8fafc;border:1px solid var(--bd);border-radius:9px;padding:13px;margin-bottom:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.psl{font-size:9px;text-transform:uppercase;letter-spacing:.6px;color:var(--tx3);font-weight:700}
+.psv{font-size:13px;font-weight:700;font-family:'JetBrains Mono',monospace;margin-top:1px}
+.psv-g{color:var(--em)}.psv-o{color:var(--go)}.psv-r{color:var(--rd)}
+
+/* ══════════════════════════════════════════════════════════
+   TOAST
+══════════════════════════════════════════════════════════ */
+#toasts{position:fixed;bottom:22px;right:22px;z-index:1000;display:flex;flex-direction:column;gap:7px}
+.toast{background:var(--nv);color:#fff;border-radius:11px;padding:10px 16px;font-size:12px;display:flex;align-items:center;gap:8px;box-shadow:0 8px 28px rgba(0,0,0,.22);animation:slideUp .28s ease}
+
+/* ══════════════════════════════════════════════════════════
+   UTILITIES
+══════════════════════════════════════════════════════════ */
+.serif{font-family:'Playfair Display',serif}
+.mono{font-family:'JetBrains Mono',monospace}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:#f8fafc}
+::-webkit-scrollbar-thumb{background:var(--bd2);border-radius:100px}
+input[type="date"]::-webkit-calendar-picker-indicator{opacity:.5;cursor:pointer}
+@media(max-width:900px){
+  .hc{grid-template-columns:1fr;gap:30px;padding:100px 20px 60px}
+  .htitle{font-size:36px}.hr-col{display:none}
+  .agrid,.cg{grid-template-columns:1fr}
+  .sbg{grid-template-columns:1fr 1fr}
+  .howg{grid-template-columns:1fr}
+  .sec{padding:56px 20px}
+  #nav{padding:0 16px}.nlinks .nl2{display:none}
+  .dside{transform:translateX(-100%)}.dmain{margin-left:0}
+  .dcont{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════════════════════ -->
+<div id="pg-home" class="page on">
+
+  <nav id="nav" class="tr">
+    <div class="nb">
+      <div class="nl">🏛️</div>
+      <div class="nn">Sree Shanthi Nagar<small>Residents Society</small></div>
+    </div>
+    <div class="nlinks">
+      <span class="nl2" onclick="goto('about')">About</span>
+      <span class="nl2" onclick="goto('how')">Loan Process</span>
+      <span class="nl2" onclick="goto('committee')">Committee</span>
+      <span class="nl2" onclick="goto('notices')">Notices</span>
+      <span class="nl2" onclick="goto('contact')">Contact</span>
+      <button class="btn btn-sf btn-sm" style="margin-left:8px" onclick="showPage('pg-login')">🔐 Login</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hp"></div><div class="hg"></div>
+    <div class="hc">
+      <div>
+        <div class="hbadge"><span class="hbdot"></span>Est. <span id="h-est">2010</span> · Community Financial Society</div>
+        <h1 class="htitle">Sree <span class="hhi">Shanthi</span><br>Nagar Society</h1>
+        <p class="hsub" id="h-tagline">A community-driven savings and loan society empowering families of Shanthi Nagar with financial security, transparent loans, and collective growth.</p>
+        <div class="hact">
+          <button class="btn btn-sf btn-lg" onclick="showPage('pg-login')">🔐 Member Login</button>
+          <button class="btn btn-lg hout" onclick="goto('about')">Learn More ↓</button>
+        </div>
+        <div class="hstats">
+          <div class="hstat"><div class="hsv" id="hs-mem">0</div><div class="hsl">Active Members</div></div>
+          <div class="hstat"><div class="hsv" id="hs-sav">₹0</div><div class="hsl">Total Savings</div></div>
+          <div class="hstat"><div class="hsv" id="hs-loans">0</div><div class="hsl">Active Loans</div></div>
+          <div class="hstat"><div class="hsv" id="hs-rep">₹0</div><div class="hsl">Repaid (Year)</div></div>
+        </div>
+      </div>
+      <div class="hr-col">
+        <div class="hcard">
+          <div class="hct">🏦 How Our Loans Work</div>
+          <div class="lstep"><div class="lsn">1</div><div><strong>Join &amp; Save</strong><span>Contribute monthly savings to the fund</span></div></div>
+          <div class="lstep"><div class="lsn">2</div><div><strong>Apply for Loan</strong><span>Request based on tenure &amp; savings</span></div></div>
+          <div class="lstep"><div class="lsn">3</div><div><strong>Quick Approval</strong><span>Committee reviews within 48 hours</span></div></div>
+          <div class="lstep"><div class="lsn">4</div><div><strong>Repay via EMI</strong><span>Track every payment in your portal</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sw" id="about">
+    <div class="si">
+      <div class="agrid">
+        <div>
+          <span class="stag">About Us</span>
+          <h2 class="sti">Building Financial<br>Security Together</h2>
+          <p class="ssu" id="h-about">Sree Shanthi Nagar Society has been the financial backbone of our community since 2010. We pool member savings to provide affordable, interest-free loans to families in need.</p>
+          <div style="margin-top:30px">
+            <div class="vi"><div class="vic vc-sf">🤝</div><div><div class="vt">Community First</div><div class="vd">Every decision prioritizes the welfare of our members and their families.</div></div></div>
+            <div class="vi"><div class="vic vc-em">🔒</div><div><div class="vt">100% Transparent</div><div class="vd">Complete visibility into savings, loans, and monthly repayments for all members.</div></div></div>
+            <div class="vi"><div class="vic vc-go">⚡</div><div><div class="vt">Quick Processing</div><div class="vd">Loan approvals within 48 hours — no bank paperwork.</div></div></div>
+          </div>
+        </div>
+        <div style="position:relative">
+          <div class="aimg"><div class="aib">🏛️</div><div class="aic">🤝</div></div>
+          <div class="afb"><div><strong id="h-years">14+</strong><span>Years of Trust ⭐</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sband">
+    <div class="sbg">
+      <div class="sbi"><div class="sbv" id="sb-sav">₹25L+</div><div class="sbl">Total Savings Pooled</div></div>
+      <div class="sbi"><div class="sbv" id="sb-mem">0</div><div class="sbl">Registered Members</div></div>
+      <div class="sbi"><div class="sbv" id="sb-loans">0</div><div class="sbl">Loans Disbursed</div></div>
+      <div class="sbi"><div class="sbv">100%</div><div class="sbl">Repayment Record</div></div>
+    </div>
+  </div>
+
+  <section class="sec sw" id="how">
+    <div class="si">
+      <span class="stag">Loan Process</span>
+      <h2 class="sti">Simple 3-Step Process</h2>
+      <p class="ssu">No paperwork. No hidden charges. A fair, community-backed loan system.</p>
+      <div class="howg">
+        <div class="hwc hw1"><div class="hwn">01</div><div class="hwi">💰</div><div class="hwt">Save Regularly</div><div class="hwd">Members contribute a fixed amount every month to the common fund. Your savings build your eligibility.</div></div>
+        <div class="hwc hw2"><div class="hwn">02</div><div class="hwi">📋</div><div class="hwt">Request a Loan</div><div class="hwd">Apply to the committee with your requirement. Approved based on savings tenure and contribution.</div></div>
+        <div class="hwc hw3"><div class="hwn">03</div><div class="hwi">📅</div><div class="hwt">Repay in EMIs</div><div class="hwd">Repay in 12 equal monthly instalments. Track every payment through your personal member portal.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec ss" id="committee">
+    <div class="si">
+      <span class="stag">Leadership</span>
+      <h2 class="sti">Our Committee</h2>
+      <p class="ssu">Dedicated volunteers who manage the society with transparency and care.</p>
+      <div class="cmg" id="committee-grid"></div>
+    </div>
+  </section>
+
+  <section class="sec sf-l-bg" id="notices">
+    <div class="si">
+      <span class="stag">Announcements</span>
+      <h2 class="sti">Latest Notices</h2>
+      <div class="nlist" id="notices-home"></div>
+    </div>
+  </section>
+
+  <div class="csec" id="contact">
+    <div class="cg">
+      <div>
+        <h2 class="ct">Get in Touch</h2>
+        <p class="csu">Questions about loans, membership, or payments? Reach out to our committee directly.</p>
+        <div class="cd"><div class="cdi">📍</div><div><strong>Address</strong><span id="h-addr">Shanthi Nagar, Hyderabad, Telangana 500001</span></div></div>
+        <div class="cd"><div class="cdi">📞</div><div><strong>Secretary</strong><span id="h-sec">9876543210</span></div></div>
+        <div class="cd"><div class="cdi">📞</div><div><strong>Treasurer</strong><span id="h-tre">9845012345</span></div></div>
+        <div class="cd"><div class="cdi">🕐</div><div><strong>Office Hours</strong><span id="h-hrs">Mon – Sat, 6:00 PM – 8:00 PM</span></div></div>
+      </div>
+      <div class="ccard">
+        <h3 class="serif" style="font-size:18px;margin-bottom:5px">Member Login</h3>
+        <p style="font-size:12px;color:var(--tx2);margin-bottom:18px">Access your loan details, EMI schedule and payment history.</p>
+        <button class="btn btn-sf btn-w" onclick="showPage('pg-login')">🔐 Login to Portal</button>
+        <p style="margin-top:12px;font-size:11px;color:var(--tx3);text-align:center">Admin login available for committee members</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <strong id="footer-name">Sree Shanthi Nagar Residents Society</strong> · Est. <span id="footer-est">2010</span> · Hyderabad, Telangana
+    <span style="display:block;margin-top:3px">Building financial security through community trust</span>
+  </footer>
+
+</div><!-- /home -->
+
+<!-- ══════════════════════════════════════════════════════════
+     PAGE: LOGIN
+══════════════════════════════════════════════════════════ -->
+<div id="pg-login" class="page">
+  <div class="lpg">
+    <div class="lbox">
+      <div class="llogo">
+        <div class="lli">🏛️</div>
+        <div><div class="lln">Sree Shanthi Nagar</div><div class="lls">Residents Society</div></div>
+      </div>
+      <h1 class="ltit">Welcome Back</h1>
+      <p class="lsub">Sign in to access your portal</p>
+      <div class="ltabs">
+        <button class="ltab on" id="ltab-admin" onclick="setLTab('admin')">👑 Admin</button>
+        <button class="ltab"    id="ltab-member" onclick="setLTab('member')">👤 Member</button>
+      </div>
+      <div class="lerr" id="lerr"></div>
+      <div class="lform">
+        <div class="fg" id="lg-user-group">
+          <label class="fl" id="lg-user-label">Username</label>
+          <input class="fi" id="lg-user" type="text" placeholder="Enter username" onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+        <div class="fg">
+          <label class="fl">Password</label>
+          <input class="fi" id="lg-pass" type="password" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+        <button class="btn btn-sf btn-w" style="padding:12px;font-size:14px" onclick="doLogin()" id="lg-btn">Sign In →</button>
+      </div>
+      <div class="lgdemo" id="lg-demo-admin">
+        <strong>🔑 Admin Credentials</strong>
+        <div class="demo-row"><span>Username:</span><span><strong>admin</strong></span></div>
+        <div class="demo-row"><span>Password:</span><span><strong>admin123</strong></span></div>
+      </div>
+      <div class="lgdemo" id="lg-demo-member" style="display:none">
+        <strong>👤 Demo Member Logins (phone / password)</strong>
+        <div class="demo-row"><span>Arjun Sharma</span><span>9876543210 / arjun123</span></div>
+        <div class="demo-row"><span>Priya Reddy</span><span>9845012345 / priya123</span></div>
+        <div class="demo-row"><span>Mohammed Farooq</span><span>9123456789 / farooq123</span></div>
+      </div>
+      <div class="lback" onclick="showPage('pg-home')">← Back to Home</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════
+     PAGE: ADMIN
+══════════════════════════════════════════════════════════ -->
+<div id="pg-admin" class="page">
+  <div class="dlayout">
+    <aside class="dside">
+      <div class="dsh">
+        <div class="dslo">
+          <div class="dsli">🏛️</div>
+          <div class="dslt">Shanthi Nagar<small>Admin Panel</small></div>
+        </div>
+      </div>
+      <nav class="dsnav">
+        <div class="nsl">Main</div>
+        <div class="ni on" data-panel="overview" onclick="showPanel(this,'overview')"><span class="nii">📊</span>Overview</div>
+        <div class="nsl">Management</div>
+        <div class="ni" data-panel="members" onclick="showPanel(this,'members')"><span class="nii">👥</span>Members</div>
+        <div class="ni" data-panel="loans" onclick="showPanel(this,'loans')"><span class="nii">💰</span>Loans &amp; Payments</div>
+        <div class="nsl">Settings</div>
+        <div class="ni" data-panel="society" onclick="showPanel(this,'society')"><span class="nii">🏛️</span>Society Settings</div>
+        <div class="ni" data-panel="notices" onclick="showPanel(this,'notices-admin')"><span class="nii">📢</span>Notices</div>
+      </nav>
+      <div class="dsf">
+        <div class="dsu">
+          <div class="dsuav" style="background:linear-gradient(135deg,var(--sf),var(--go))">A</div>
+          <div><div class="dsun">Administrator</div><div class="dsur">Full Access</div></div>
+        </div>
+        <div class="dslo2" onclick="doLogout()">🚪 Sign Out</div>
+      </div>
+    </aside>
+    <div class="dmain">
+      <div class="dtop">
+        <div class="dtt" id="admin-title">Overview</div>
+        <div class="dtr">
+          <div class="dpill"><span class="dlive"></span>Admin Session</div>
+          <button class="btn btn-gh btn-sm" onclick="showPage('pg-home')">🏠 Home</button>
+        </div>
+      </div>
+      <div class="dcont">
+
+        <!-- OVERVIEW -->
+        <div class="panel on" id="panel-overview">
+          <div class="cgrid">
+            <div class="dc dc-sf"><div class="dcl">Total Members</div><div class="dcv" id="adm-mem">0</div><div class="dcs">Accounts</div><div class="dci">👥</div></div>
+            <div class="dc dc-nv"><div class="dcl">Loan Portfolio</div><div class="dcv" id="adm-loan">₹0</div><div class="dcs">Active loans</div><div class="dci">💰</div></div>
+            <div class="dc dc-em"><div class="dcl">Collected (Year)</div><div class="dcv" id="adm-col">₹0</div><div class="dcs" id="adm-col-sub">this year</div><div class="dci">✅</div></div>
+            <div class="dc dc-go"><div class="dcl">Pending Slots</div><div class="dcv" id="adm-pend">0</div><div class="dcs">EMIs due</div><div class="dci">⏳</div></div>
+          </div>
+          <div class="pbox">
+            <div class="pbh"><div class="pbt">📋 Recent Members</div><button class="btn btn-sf btn-sm" onclick="showPanelById('members')">View All</button></div>
+            <div class="pbb" id="overview-list"></div>
+          </div>
+        </div>
+
+        <!-- MEMBERS -->
+        <div class="panel" id="panel-members">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;gap:10px;flex-wrap:wrap">
+            <input class="fi" style="max-width:220px" placeholder="🔍 Search members…" oninput="renderMembersTable(this.value)" id="mem-search">
+            <button class="btn btn-sf" onclick="openAddMember()">＋ Add Member</button>
+          </div>
+          <div class="pbox">
+            <div class="pbh"><div class="pbt">👥 All Members</div><span id="mem-count" style="font-size:11px;color:var(--tx3)"></span></div>
+            <div class="tw"><table class="dt"><thead><tr><th>Member</th><th>Phone</th><th>Savings/Mo</th><th>Loan</th><th>EMI</th><th>Status</th><th>Actions</th></tr></thead><tbody id="mem-tbody"></tbody></table></div>
+          </div>
+        </div>
+
+        <!-- LOANS -->
+        <div class="panel" id="panel-loans">
+          <div class="ybar" id="loan-ybar">
+            <span class="yl">📅 Year</span>
+            <div id="loan-ytabs"></div>
+            <button class="yt ytadd" onclick="adminAddYear()">＋</button>
+          </div>
+          <div class="pbox">
+            <div class="pbh">
+              <div class="pbt">💰 Loan &amp; EMI Tracker — <span id="loan-year-lbl"></span></div>
+              <div style="display:flex;gap:8px;align-items:center;font-size:10px;color:var(--tx3)">
+                <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--em);margin-right:3px"></span>Paid</span>
+                <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--go);margin-right:3px"></span>Partial</span>
+                <span><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--bd2);margin-right:3px"></span>Unpaid</span>
+              </div>
+            </div>
+            <div class="tw">
+              <table class="dt" style="min-width:1580px">
+                <thead><tr><th>Member</th><th>Loan</th><th style="min-width:90px">Progress</th>
+                  <th style="text-align:center;min-width:80px">Jan</th><th style="text-align:center;min-width:80px">Feb</th><th style="text-align:center;min-width:80px">Mar</th><th style="text-align:center;min-width:80px">Apr</th><th style="text-align:center;min-width:80px">May</th><th style="text-align:center;min-width:80px">Jun</th><th style="text-align:center;min-width:80px">Jul</th><th style="text-align:center;min-width:80px">Aug</th><th style="text-align:center;min-width:80px">Sep</th><th style="text-align:center;min-width:80px">Oct</th><th style="text-align:center;min-width:80px">Nov</th><th style="text-align:center;min-width:80px">Dec</th>
+                </tr></thead>
+                <tbody id="loan-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SOCIETY SETTINGS -->
+        <div class="panel" id="panel-society">
+          <div class="pbox" style="margin-bottom:16px">
+            <div class="pbh"><div class="pbt">🏛️ Society Details</div></div>
+            <div class="pbb">
+              <div class="mg" style="gap:15px;margin-bottom:16px">
+                <div class="fg full"><label class="fl">Society Name</label><input class="fi" id="soc-name"></div>
+                <div class="fg full"><label class="fl">Tagline</label><input class="fi" id="soc-tagline"></div>
+                <div class="fg"><label class="fl">Est. Year</label><input class="fi" id="soc-est" type="number"></div>
+                <div class="fg"><label class="fl">Total Savings Display (₹)</label><input class="fi" id="soc-sav" type="number"></div>
+                <div class="fg full"><label class="fl">Address</label><input class="fi" id="soc-addr"></div>
+                <div class="fg"><label class="fl">Secretary Phone</label><input class="fi" id="soc-sec" maxlength="10" type="tel" onkeypress="return /[0-9]/.test(event.key)"></div>
+                <div class="fg"><label class="fl">Treasurer Phone</label><input class="fi" id="soc-tre" maxlength="10" type="tel" onkeypress="return /[0-9]/.test(event.key)"></div>
+                <div class="fg full"><label class="fl">Office Hours</label><input class="fi" id="soc-hrs"></div>
+              </div>
+              <button class="btn btn-sf" onclick="saveSociety()">💾 Save Settings</button>
+            </div>
+          </div>
+          <div class="pbox">
+            <div class="pbh"><div class="pbt">👑 Committee Members</div><button class="btn btn-sf btn-sm" onclick="openCommitteeModal()">＋ Add</button></div>
+            <div class="pbb" id="committee-admin"></div>
+          </div>
+        </div>
+
+        <!-- NOTICES ADMIN -->
+        <div class="panel" id="panel-notices-admin">
+          <div class="pbox" style="margin-bottom:16px">
+            <div class="pbh"><div class="pbt">📢 Add Notice</div></div>
+            <div class="pbb">
+              <div style="display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:end">
+                <div class="fg"><label class="fl">Notice Title</label><input class="fi" id="n-title" placeholder="Enter notice…"></div>
+                <div class="fg"><label class="fl">Type</label><select class="fi" id="n-type"><option value="new">Important</option><option value="info">Info</option></select></div>
+                <div class="fg"><label class="fl">Date</label><input class="fi" id="n-date" type="date"></div>
+                <button class="btn btn-sf btn-sm" onclick="addNotice()" style="margin-bottom:0">Publish</button>
+              </div>
+            </div>
+          </div>
+          <div id="notices-admin-list"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div><!-- /admin -->
+
+<!-- ══════════════════════════════════════════════════════════
+     PAGE: MEMBER
+══════════════════════════════════════════════════════════ -->
+<div id="pg-member" class="page">
+  <div class="dlayout">
+    <aside class="dside">
+      <div class="dsh">
+        <div class="dslo">
+          <div class="dsli">🏛️</div>
+          <div class="dslt">Shanthi Nagar<small>Member Portal</small></div>
+        </div>
+      </div>
+      <nav class="dsnav">
+        <div class="ni on" onclick="showMPanel(this,'mloan')"><span class="nii">🏠</span>My Loan</div>
+        <div class="ni" onclick="showMPanel(this,'mhistory')"><span class="nii">📅</span>Payment History</div>
+        <div class="ni" onclick="showMPanel(this,'mprofile')"><span class="nii">👤</span>My Profile</div>
+      </nav>
+      <div class="dsf">
+        <div class="dsu">
+          <div class="dsuav" id="mem-sidebar-av" style="background:linear-gradient(135deg,var(--sf),var(--go))">M</div>
+          <div><div class="dsun" id="mem-sidebar-name">Member</div><div class="dsur" id="mem-sidebar-id"></div></div>
+        </div>
+        <div class="dslo2" onclick="doLogout()">🚪 Sign Out</div>
+      </div>
+    </aside>
+    <div class="dmain">
+      <div class="dtop">
+        <div class="dtt" id="member-title">My Loan</div>
+        <div class="dtr">
+          <div class="dpill"><span class="dlive"></span><span id="mem-topbar-name">Member</span></div>
+          <button class="btn btn-gh btn-sm" onclick="showPage('pg-home')">🏠 Home</button>
+        </div>
+      </div>
+      <div class="dcont">
+        <!-- MY LOAN -->
+        <div class="panel on" id="panel-mloan">
+          <div class="lcard">
+            <div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.45);margin-bottom:5px">Total Loan Amount</div>
+            <div class="lca" id="ml-amount">₹0</div>
+            <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:5px;position:relative;z-index:1" id="ml-meta">—</div>
+            <div class="lcg">
+              <div><div class="lcgl">Monthly EMI</div><div class="lcgv" id="ml-emi">₹0</div></div>
+              <div><div class="lcgl">Paid EMIs</div><div class="lcgv" id="ml-paid">0/12</div></div>
+              <div><div class="lcgl">Balance Left</div><div class="lcgv" id="ml-bal">₹0</div></div>
+            </div>
+          </div>
+          <div class="emi-sec">
+            <div style="position:relative;width:76px;height:76px;flex-shrink:0">
+              <svg width="76" height="76" viewBox="0 0 76 76">
+                <circle cx="38" cy="38" r="32" fill="none" stroke="var(--bd)" stroke-width="7"/>
+                <circle cx="38" cy="38" r="32" fill="none" stroke="var(--sf)" stroke-width="7" stroke-linecap="round" stroke-dasharray="201.1" id="ml-ring" stroke-dashoffset="201.1" style="transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .6s"/>
+              </svg>
+              <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+                <span style="font-size:14px;font-weight:700;color:var(--sf)" id="ml-pct">0%</span>
+                <span style="font-size:8px;color:var(--tx3)">Paid</span>
+              </div>
+            </div>
+            <div id="ml-emi-details"></div>
+          </div>
+          <div class="ybar" id="mem-ybar">
+            <span class="yl">📅 Year</span>
+            <div id="mem-ytabs"></div>
+          </div>
+          <div class="pbox">
+            <div class="pbh"><div class="pbt">📅 EMI Schedule — <span id="ml-year-lbl"></span></div></div>
+            <div class="pbb"><div id="ml-schedule" style="display:flex;flex-direction:column;gap:9px"></div></div>
+          </div>
+        </div>
+        <!-- HISTORY -->
+        <div class="panel" id="panel-mhistory">
+          <div class="pbox">
+            <div class="pbh"><div class="pbt">📜 Full Payment History</div></div>
+            <div class="pbb"><div id="ml-history" style="display:flex;flex-direction:column;gap:9px"></div></div>
+          </div>
+        </div>
+        <!-- PROFILE -->
+        <div class="panel" id="panel-mprofile">
+          <div class="pbox"><div class="pbh"><div class="pbt">👤 My Profile</div></div><div class="pbb" id="ml-profile"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /member -->
+
+<!-- ══════════════════════════════════════════════════════════
+     MODALS
+══════════════════════════════════════════════════════════ -->
+<!-- Member Modal -->
+<div class="mo" id="mo-member" onclick="closeMoOutside(event,'mo-member')">
+  <div class="mbox">
+    <div class="mtit" id="mo-mem-title">✦ Add Member</div>
+    <div style="display:flex;flex-direction:column;gap:13px">
+      <div class="fg"><label class="fl">Full Name</label><input class="fi" id="mm-name" type="text" oninput="valName(this)"><div class="fh" id="mm-name-h"></div></div>
+      <div class="fg"><label class="fl">Phone (10 digits)</label>
+        <div class="iw"><input class="fi" id="mm-phone" type="tel" maxlength="10" placeholder="9XXXXXXXXX" oninput="valPhone(this)" onkeypress="return /[0-9]/.test(event.key)"><span class="pc" id="mm-pc">0/10</span></div>
+        <div class="fh fh-i" id="mm-phone-h">Enter 10-digit mobile number</div>
+      </div>
+      <div class="mg">
+        <div class="fg"><label class="fl">Loan Amount (₹)</label><input class="fi" id="mm-loan" type="number" min="1" oninput="valLoan(this)"><div class="fh" id="mm-loan-h"></div></div>
+        <div class="fg"><label class="fl">Monthly Savings (₹)</label><input class="fi" id="mm-sav" type="number" min="1" placeholder="500"></div>
+      </div>
+      <div class="fg"><label class="fl">Login Password</label><input class="fi" id="mm-pass" type="text" placeholder="Set member login password"><div class="fh fh-i">Member logs in with phone + this password</div></div>
+    </div>
+    <div class="mact">
+      <button class="btn btn-gh" onclick="closeMo('mo-member')">Cancel</button>
+      <button class="btn btn-sf" id="mm-save-btn" onclick="saveMember()">Save Member</button>
+    </div>
+  </div>
+</div>
+
+<!-- Payment Modal -->
+<div class="mo" id="mo-pay" onclick="closeMoOutside(event,'mo-pay')">
+  <div class="mbox">
+    <div class="pmh">
+      <div><div class="mtit" id="pm-title" style="margin-bottom:3px">January Payment</div><div style="font-size:11px;color:var(--tx2)" id="pm-meta">—</div></div>
+      <span class="pmbadge pb-unpaid" id="pm-badge">Unpaid</span>
+    </div>
+    <div class="psum" id="pm-sum" style="display:none">
+      <div><div class="psl">Amount Paid</div><div class="psv psv-g" id="pms-a">—</div></div>
+      <div><div class="psl">Payment Date</div><div class="psv" id="pms-d" style="color:var(--tx2)">—</div></div>
+      <div><div class="psl">Monthly EMI</div><div class="psv psv-o" id="pms-e">—</div></div>
+      <div><div class="psl">Balance Due</div><div class="psv psv-r" id="pms-b">—</div></div>
+    </div>
+    <div class="mg">
+      <div class="fg"><label class="fl">Amount Paid (₹)</label><input class="fi" id="pm-amt" type="number" min="0" oninput="onPmAmt()"><div class="fh fh-i" id="pm-bal-hint"></div></div>
+      <div class="fg"><label class="fl">Payment Date</label><input class="fi" id="pm-date" type="date"></div>
+      <div class="fg full"><label class="fl">Notes (optional)</label><input class="fi" id="pm-notes" placeholder="Cash / UPI / Cheque…"></div>
+    </div>
+    <div class="mact">
+      <button class="btn btn-rd btn-sm" id="pm-clear" onclick="clearPayment()" style="margin-right:auto;display:none">✕ Clear</button>
+      <button class="btn btn-gh" onclick="closeMo('mo-pay')">Cancel</button>
+      <button class="btn btn-sf" onclick="savePayment()">💾 Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Committee Modal -->
+<div class="mo" id="mo-cm" onclick="closeMoOutside(event,'mo-cm')">
+  <div class="mbox">
+    <div class="mtit">👑 Add Committee Member</div>
+    <div style="display:flex;flex-direction:column;gap:13px">
+      <div class="fg"><label class="fl">Full Name</label><input class="fi" id="cm-name" type="text"></div>
+      <div class="fg"><label class="fl">Role</label><select class="fi" id="cm-role"><option>President</option><option>Vice President</option><option>Secretary</option><option>Treasurer</option><option>Joint Secretary</option><option>Member</option></select></div>
+      <div class="fg"><label class="fl">Phone</label><input class="fi" id="cm-phone" type="tel" maxlength="10" onkeypress="return /[0-9]/.test(event.key)"></div>
+    </div>
+    <div class="mact">
+      <button class="btn btn-gh" onclick="closeMo('mo-cm')">Cancel</button>
+      <button class="btn btn-sf" onclick="saveCm()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div id="toasts"></div>
+
+<!-- ══════════════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════════════ -->
+<script>
+/* ─── CONSTANTS ─── */
+const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MFULL=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const AVCOLS=['linear-gradient(135deg,#e8650a,#c9972a)','linear-gradient(135deg,#0a7a4a,#0d9658)','linear-gradient(135deg,#0d1f3c,#1e3d6e)','linear-gradient(135deg,#7c3aed,#a78bfa)','linear-gradient(135deg,#dc2626,#f87171)','linear-gradient(135deg,#0284c7,#38bdf8)','linear-gradient(135deg,#d97706,#fbbf24)','linear-gradient(135deg,#059669,#34d399)'];
+const CY=new Date().getFullYear();
+
+/* ─── STORAGE ─── */
+function load(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch{return d}}
+function save(k,v){localStorage.setItem(k,JSON.stringify(v))}
+
+let members  = load('ssn-members',[]);
+let years    = load('ssn-years',[CY-1,CY]);
+let society  = load('ssn-society',{name:'Sree Shanthi Nagar Residents Society',tagline:'Building Financial Security Together',est:2010,savings:2500000,addr:'Shanthi Nagar, Hyderabad, Telangana 500001',sec:'9876543210',tre:'9845012345',hrs:'Mon – Sat, 6:00 PM – 8:00 PM'});
+let committee= load('ssn-committee',[{id:'c1',name:'Ramesh Kumar',role:'President',phone:'9876543210'},{id:'c2',name:'Lakshmi Devi',role:'Secretary',phone:'9845012345'},{id:'c3',name:'Suresh Babu',role:'Treasurer',phone:'9123456789'},{id:'c4',name:'Anitha Reddy',role:'Joint Secretary',phone:'9988776655'}]);
+let notices  = load('ssn-notices',[{id:'n1',title:'Monthly meeting on 25th – all members required to attend',type:'new',date:'2025-03-15'},{id:'n2',title:'EMI due date is the 28th of each month – pay on time',type:'info',date:'2025-03-10'},{id:'n3',title:'New loan applications open for members with 6+ months tenure',type:'new',date:'2025-03-01'}]);
+
+/* ─── AUTH ─── */
+// Admin credentials (hardcoded)
+const ADMIN={user:'admin',pass:'admin123'};
+
+// Members each have {id,memberId,name,phone,loan,savings,pass,payments:{year:{month:{amount,date,notes}}}}
+// Seed demo members if empty
+if(!members.length){
+  const demo=[
+    {name:'Arjun Sharma',   phone:'9876543211',loan:'72000',savings:'500', pass:'arjun123'},
+    {name:'Priya Reddy',    phone:'9845012345',loan:'48000',savings:'500', pass:'priya123'},
+    {name:'Mohammed Farooq',phone:'9123456789',loan:'96000',savings:'1000',pass:'farooq123'},
+    {name:'Sunita Patel',   phone:'9988776655',loan:'36000',savings:'500', pass:'sunita123'},
+    {name:'Vijay Krishna',  phone:'9700123456',loan:'60000',savings:'750', pass:'vijay123'},
+  ];
+  demo.forEach((d,i)=>{
+    const m={id:uid(),memberId:'MEM-'+String(i+1).padStart(5,'0'),...d,payments:{}};
+    const emi=Math.ceil(Number(d.loan)/12);
+    m.payments[CY]={};
+    MONTHS.slice(0,2+i).forEach((mo,j)=>{
+      const dy=String(4+j*2).padStart(2,'0');
+      m.payments[CY][mo]={amount:emi,date:`${CY}-${String(j+1).padStart(2,'0')}-${dy}`,notes:''};
+    });
+    const nm=MONTHS[2+i];
+    if(nm)m.payments[CY][nm]={amount:Math.floor(emi*.55),date:null,notes:'Partial'};
+    members.push(m);
+  });
+  save('ssn-members',members);
+}
+
+let currentUser=null;
+let editMemberId=null;
+let payState={};
+let activeAdminYear=years.includes(CY)?CY:years[years.length-1];
+let activeMemberYear=years.includes(CY)?CY:years[years.length-1];
+
+/* ─── UTILS ─── */
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function emi(loan){return Math.ceil(Number(loan)/12)}
+function fmtA(n){return'₹'+Number(n||0).toLocaleString('en-IN')}
+function fmtD(d){if(!d)return'—';const dt=new Date(d);if(isNaN(dt))return'—';return`${String(dt.getDate()).padStart(2,'0')}/${String(dt.getMonth()+1).padStart(2,'0')}/${dt.getFullYear()}`}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function avCol(n=''){let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))%AVCOLS.length;return AVCOLS[Math.abs(h)]}
+function inits(n=''){return n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase()}
+function isValidPhone(v){return/^[6-9]\d{9}$/.test(v)}
+function getPay(m,year,month){return m.payments?.[year]?.[month]||null}
+function ensurePay(m,year){if(!m.payments)m.payments={};if(!m.payments[year])m.payments[year]={}}
+
+/* ─── TOAST ─── */
+let _tt;
+function toast(icon,msg){
+  const el=document.getElementById('toasts');
+  const d=document.createElement('div');
+  d.className='toast';d.innerHTML=`<span>${icon}</span><span>${esc(msg)}</span>`;
+  el.appendChild(d);setTimeout(()=>d.remove(),3000);
+}
+
+/* ─── PAGE ROUTING ─── */
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  window.scrollTo(0,0);
+  if(id==='pg-home')refreshHome();
+}
+
+/* ─── NAV SCROLL ─── */
+window.addEventListener('scroll',()=>{
+  const n=document.getElementById('nav');
+  if(n)n.className='tr sc'.includes(n.className)?'tr':'tr'; // reset
+  if(n)n.className=window.scrollY>60?'sc':'tr';
+});
+function goto(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
+
+/* ─── HOME REFRESH ─── */
+function refreshHome(){
+  // society info
+  document.getElementById('h-est').textContent=society.est||2010;
+  document.getElementById('h-tagline').textContent=society.tagline||'';
+  document.getElementById('h-years').textContent=(new Date().getFullYear()-(society.est||2010))+'+';
+  document.getElementById('h-addr').textContent=society.addr||'';
+  document.getElementById('h-sec').textContent=society.sec||'';
+  document.getElementById('h-tre').textContent=society.tre||'';
+  document.getElementById('h-hrs').textContent=society.hrs||'';
+  document.getElementById('footer-name').textContent=society.name||'';
+  document.getElementById('footer-est').textContent=society.est||2010;
+  // stats
+  const totalLoan=members.reduce((a,m)=>a+Number(m.loan||0),0);
+  let repaid=0;
+  members.forEach(m=>Object.values(m.payments||{}).forEach(yr=>Object.values(yr||{}).forEach(p=>{if(p?.amount>0)repaid+=Number(p.amount)})));
+  document.getElementById('hs-mem').textContent=members.length;
+  document.getElementById('hs-sav').textContent=fmtA(society.savings||0);
+  document.getElementById('hs-loans').textContent=members.length;
+  document.getElementById('hs-rep').textContent=fmtA(repaid);
+  document.getElementById('sb-mem').textContent=members.length;
+  document.getElementById('sb-sav').textContent=fmtA(society.savings||0);
+  document.getElementById('sb-loans').textContent=members.length;
+  // committee
+  const cg=document.getElementById('committee-grid');
+  cg.innerHTML=committee.map(c=>`
+    <div class="cmc">
+      <div class="cmav" style="background:${avCol(c.name)}">${inits(c.name)}</div>
+      <div class="cmr">${esc(c.role)}</div>
+      <div class="cmn">${esc(c.name)}</div>
+      <div class="cmp">${esc(c.phone)}</div>
+    </div>`).join('');
+  // notices
+  const nh=document.getElementById('notices-home');
+  nh.innerHTML=notices.slice(0,4).map(n=>`
+    <div class="nitem">
+      <div class="ndot ${n.type==='new'?'nd-new':'nd-info'}"></div>
+      <div><div class="ntit">${esc(n.title)}</div><div class="ndt">${fmtD(n.date)}</div></div>
+    </div>`).join('');
+  if(!notices.length)nh.innerHTML='<div class="nitem"><div class="ndot nd-info"></div><div><div class="ntit">No notices at this time.</div></div></div>';
+}
+
+/* ─── LOGIN ─── */
+let loginRole='admin';
+function setLTab(role){
+  loginRole=role;
+  document.getElementById('ltab-admin').classList.toggle('on',role==='admin');
+  document.getElementById('ltab-member').classList.toggle('on',role==='member');
+  document.getElementById('lerr').classList.remove('on');
+  const ug=document.getElementById('lg-user-group');
+  const ul=document.getElementById('lg-user-label');
+  const ui=document.getElementById('lg-user');
+  if(role==='admin'){
+    ul.textContent='Username';
+    ui.placeholder='Enter username';
+    ui.type='text';
+  } else {
+    ul.textContent='Phone Number (10 digits)';
+    ui.placeholder='9XXXXXXXXX';
+    ui.type='tel';
+    ui.maxLength=10;
+  }
+  document.getElementById('lg-demo-admin').style.display=role==='admin'?'block':'none';
+  document.getElementById('lg-demo-member').style.display=role==='member'?'block':'none';
+  document.getElementById('lg-user').value='';
+  document.getElementById('lg-pass').value='';
+}
+
+function doLogin(){
+  const uVal=document.getElementById('lg-user').value.trim();
+  const pVal=document.getElementById('lg-pass').value.trim();
+  const errEl=document.getElementById('lerr');
+  errEl.classList.remove('on');
+  document.getElementById('lg-btn').textContent='Signing in…';
+
+  setTimeout(()=>{
+    document.getElementById('lg-btn').textContent='Sign In →';
+
+    if(loginRole==='admin'){
+      if(uVal===ADMIN.user && pVal===ADMIN.pass){
+        currentUser={role:'admin'};
+        renderAdminDashboard();
+        showPage('pg-admin');
+        toast('👑','Welcome, Administrator!');
+      } else {
+        errEl.textContent='Invalid admin credentials. Try: admin / admin123';
+        errEl.classList.add('on');
+      }
+    } else {
+      // Member: match by phone + pass
+      const m=members.find(x=>x.phone===uVal && x.pass===pVal);
+      if(m){
+        currentUser={role:'member',id:m.id};
+        renderMemberPortal(m.id);
+        showPage('pg-member');
+        toast('👤',`Welcome, ${m.name}!`);
+      } else {
+        // Show helpful error
+        const phoneExists=members.find(x=>x.phone===uVal);
+        if(phoneExists){
+          errEl.textContent='Incorrect password for this phone number.';
+        } else if(uVal.length>0 && uVal.length<10){
+          errEl.textContent='Phone must be 10 digits (e.g. 9876543210).';
+        } else {
+          errEl.textContent='Phone number not found. Check credentials below.';
+        }
+        errEl.classList.add('on');
+      }
+    }
+  },400);
+}
+
+function doLogout(){currentUser=null;showPage('pg-home');toast('👋','Logged out successfully')}
+
+/* ─── ADMIN PANELS ─── */
+const panelTitles={overview:'Overview',members:'Members',loans:'Loans & Payments',society:'Society Settings','notices-admin':'Notices'};
+
+function showPanel(el,name){
+  document.querySelectorAll('#pg-admin .ni').forEach(n=>n.classList.remove('on'));
+  el.classList.add('on');
+  document.querySelectorAll('#pg-admin .panel').forEach(p=>p.classList.remove('on'));
+  const pid='panel-'+(name==='notices-admin'?'notices-admin':name);
+  document.getElementById(pid)?.classList.add('on');
+  document.getElementById('admin-title').textContent=panelTitles[name]||name;
+  if(name==='overview')renderOverview();
+  if(name==='members')renderMembersTable('');
+  if(name==='loans'){renderLoanYearTabs();renderLoansTable()}
+  if(name==='society')renderSocietyPanel();
+  if(name==='notices-admin')renderNoticesAdmin();
+}
+
+function showPanelById(name){
+  const el=document.querySelector(`#pg-admin .ni[data-panel="${name}"]`);
+  if(el)showPanel(el,name);
+}
+
+function renderAdminDashboard(){renderOverview()}
+
+function renderOverview(){
+  const totalLoan=members.reduce((a,m)=>a+Number(m.loan||0),0);
+  const totalSlots=members.length*12;
+  let paid=0,collected=0;
+  members.forEach(m=>{
+    const p=m.payments?.[activeAdminYear]||{};
+    MONTHS.forEach(mo=>{if(p[mo]?.amount>0){paid++;collected+=Number(p[mo].amount)}});
+  });
+  document.getElementById('adm-mem').textContent=members.length;
+  document.getElementById('adm-loan').textContent=fmtA(totalLoan);
+  document.getElementById('adm-col').textContent=fmtA(collected);
+  document.getElementById('adm-col-sub').textContent=`collected in ${activeAdminYear}`;
+  document.getElementById('adm-pend').textContent=totalSlots-paid;
+  const ol=document.getElementById('overview-list');
+  if(!members.length){ol.innerHTML='<div class="empty"><div class="empty-i">👥</div><p>No members yet</p></div>';return}
+  ol.innerHTML=`<div class="tw"><table class="dt"><thead><tr><th>Member</th><th>Phone</th><th>Loan</th><th>Status</th></tr></thead><tbody>`+
+    members.slice(0,5).map(m=>`<tr>
+      <td><div class="mcell"><div class="mav" style="background:${avCol(m.name)}">${inits(m.name)}</div><div><div class="mn">${esc(m.name)}</div><div class="mi">${esc(m.memberId)}</div></div></div></td>
+      <td class="mono" style="font-size:11px;color:var(--tx2)">${esc(m.phone)}</td>
+      <td class="mono" style="font-weight:700;color:var(--go)">${fmtA(m.loan)}</td>
+      <td><span class="badge ba">Active</span></td>
+    </tr>`).join('')+`</tbody></table></div>`;
+}
+
+function renderMembersTable(q=''){
+  const list=members.filter(m=>m.name.toLowerCase().includes(q.toLowerCase())||m.phone.includes(q)||(m.memberId||'').toLowerCase().includes(q.toLowerCase()));
+  document.getElementById('mem-count').textContent=`${list.length} member${list.length!==1?'s':''}`;
+  const tb=document.getElementById('mem-tbody');
+  if(!list.length){tb.innerHTML=`<tr><td colspan="7"><div class="empty"><div class="empty-i">👥</div><p>${members.length?'No results':'No members'}</p></div></td></tr>`;return}
+  tb.innerHTML=list.map(m=>`<tr>
+    <td><div class="mcell"><div class="mav" style="background:${avCol(m.name)}">${inits(m.name)}</div><div><div class="mn">${esc(m.name)}</div><div class="mi">${esc(m.memberId)}</div></div></div></td>
+    <td class="mono" style="font-size:11px;color:var(--tx2)">${esc(m.phone)}</td>
+    <td class="mono" style="font-size:11px">${fmtA(m.savings)}/mo</td>
+    <td class="mono" style="font-weight:700;color:var(--go)">${fmtA(m.loan)}</td>
+    <td class="mono" style="font-size:11px">${fmtA(emi(m.loan))}</td>
+    <td><span class="badge ba">Active</span></td>
+    <td><div class="acell">
+      <button class="ab" onclick="openEditMember('${m.id}')" title="Edit">✎</button>
+      <button class="ab del" onclick="deleteMember('${m.id}')" title="Delete">✕</button>
+    </div></td>
+  </tr>`).join('');
+}
+
+/* Year tabs */
+function renderLoanYearTabs(){
+  const c=document.getElementById('loan-ytabs');
+  c.innerHTML=years.map(y=>`<button class="yt ${y===activeAdminYear?'on':''}" onclick="setAdminYear(${y})">${y}</button>`).join('');
+  document.getElementById('loan-year-lbl').textContent=activeAdminYear;
+}
+function setAdminYear(y){activeAdminYear=y;renderLoanYearTabs();renderLoansTable()}
+function adminAddYear(){
+  const nx=years[years.length-1]+1;
+  if(!years.includes(nx)){years.push(nx);save('ssn-years',years)}
+  setAdminYear(nx);
+}
+
+function renderLoansTable(){
+  const tb=document.getElementById('loan-tbody');
+  if(!members.length){tb.innerHTML=`<tr><td colspan="15"><div class="empty"><div class="empty-i">💰</div><p>No members</p></div></td></tr>`;return}
+  tb.innerHTML=members.map(m=>{
+    const pays=m.payments?.[activeAdminYear]||{};
+    const paidMos=MONTHS.filter(mo=>pays[mo]?.amount>0);
+    const pct=Math.round((paidMos.length/12)*100);
+    const bc=pct===100?'var(--em)':pct>=50?'var(--go)':'var(--sf)';
+    const e=emi(m.loan);
+    const moCells=MONTHS.map(mo=>{
+      const p=pays[mo];const has=p&&Number(p.amount)>0;const full=has&&Number(p.amount)>=e;
+      const cls=full?'paid':has?'partial':'unpaid';
+      let inner=`<span class="mbs">${full?'✓ PAID':has?'~ PART':'—'}</span>`;
+      if(has){inner+=`<span class="mba">${fmtA(p.amount)}</span>`;if(p.date)inner+=`<span class="mbd">${fmtD(p.date)}</span>`}
+      return`<td style="text-align:center"><button class="mb ${cls}" onclick="openPayModal('${m.id}','${mo}')">${inner}</button></td>`;
+    }).join('');
+    return`<tr>
+      <td><div class="mcell"><div class="mav" style="background:${avCol(m.name)}">${inits(m.name)}</div><div><div class="mn">${esc(m.name)}</div><div class="mi">${esc(m.memberId)}</div></div></div></td>
+      <td class="mono" style="font-weight:700;color:var(--go);font-size:12px">${fmtA(m.loan)}</td>
+      <td><div class="pw"><div class="pt"><div class="pf" style="width:${pct}%;background:${bc}"></div></div><div class="pl">${paidMos.length}/12</div></div></td>
+      ${moCells}
+    </tr>`;
+  }).join('');
+}
+
+/* Society */
+function renderSocietyPanel(){
+  document.getElementById('soc-name').value=society.name||'';
+  document.getElementById('soc-tagline').value=society.tagline||'';
+  document.getElementById('soc-est').value=society.est||'';
+  document.getElementById('soc-sav').value=society.savings||'';
+  document.getElementById('soc-addr').value=society.addr||'';
+  document.getElementById('soc-sec').value=society.sec||'';
+  document.getElementById('soc-tre').value=society.tre||'';
+  document.getElementById('soc-hrs').value=society.hrs||'';
+  renderCommitteeAdmin();
+}
+function saveSociety(){
+  society.name=document.getElementById('soc-name').value;
+  society.tagline=document.getElementById('soc-tagline').value;
+  society.est=document.getElementById('soc-est').value;
+  society.savings=document.getElementById('soc-sav').value;
+  society.addr=document.getElementById('soc-addr').value;
+  society.sec=document.getElementById('soc-sec').value;
+  society.tre=document.getElementById('soc-tre').value;
+  society.hrs=document.getElementById('soc-hrs').value;
+  save('ssn-society',society);
+  toast('✅','Society settings saved');
+}
+function renderCommitteeAdmin(){
+  const el=document.getElementById('committee-admin');
+  if(!committee.length){el.innerHTML='<div class="empty"><div class="empty-i">👑</div><p>No committee members</p></div>';return}
+  el.innerHTML=committee.map(c=>`
+    <div style="display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid var(--bd)">
+      <div style="width:34px;height:34px;border-radius:8px;background:${avCol(c.name)};display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0">${inits(c.name)}</div>
+      <div style="flex:1"><div style="font-weight:600;font-size:13px">${esc(c.name)}</div><div style="font-size:10px;color:var(--sf);font-weight:600">${esc(c.role)}</div></div>
+      <div class="mono" style="font-size:11px;color:var(--tx2)">${esc(c.phone)}</div>
+      <button class="ab del" onclick="deleteCm('${c.id}')">✕</button>
+    </div>`).join('');
+}
+function openCommitteeModal(){
+  document.getElementById('cm-name').value='';document.getElementById('cm-phone').value='';
+  document.getElementById('mo-cm').classList.add('on');
+  setTimeout(()=>document.getElementById('cm-name').focus(),80);
+}
+function saveCm(){
+  const n=document.getElementById('cm-name').value.trim();
+  const r=document.getElementById('cm-role').value;
+  const p=document.getElementById('cm-phone').value.trim();
+  if(!n||!p){toast('⚠️','Fill all fields');return}
+  committee.push({id:uid(),name:n,role:r,phone:p});
+  save('ssn-committee',committee);
+  closeMo('mo-cm');renderCommitteeAdmin();refreshHome();
+  toast('✅',`${n} added to committee`);
+}
+function deleteCm(id){
+  committee=committee.filter(c=>c.id!==id);save('ssn-committee',committee);renderCommitteeAdmin();refreshHome();toast('🗑️','Removed');
+}
+
+/* Notices admin */
+function renderNoticesAdmin(){
+  document.getElementById('n-date').value=new Date().toISOString().slice(0,10);
+  const el=document.getElementById('notices-admin-list');
+  if(!notices.length){el.innerHTML='<div class="empty"><div class="empty-i">📢</div><p>No notices</p></div>';return}
+  el.innerHTML=notices.map((n,i)=>`
+    <div class="pbox" style="margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:12px;padding:13px 16px">
+        <div style="width:9px;height:9px;border-radius:50%;background:${n.type==='new'?'var(--sf)':'var(--em)'};flex-shrink:0"></div>
+        <div style="flex:1"><div style="font-weight:600;font-size:13px">${esc(n.title)}</div><div style="font-size:10px;color:var(--tx3);margin-top:2px">${fmtD(n.date)}</div></div>
+        <button class="ab del" onclick="deleteNotice('${n.id}')">✕</button>
+      </div>
+    </div>`).join('');
+}
+function addNotice(){
+  const t=document.getElementById('n-title').value.trim();
+  if(!t){toast('⚠️','Enter a title');return}
+  notices.unshift({id:uid(),title:t,type:document.getElementById('n-type').value,date:document.getElementById('n-date').value});
+  save('ssn-notices',notices);document.getElementById('n-title').value='';
+  renderNoticesAdmin();refreshHome();toast('📢','Notice published');
+}
+function deleteNotice(id){notices=notices.filter(n=>n.id!==id);save('ssn-notices',notices);renderNoticesAdmin();refreshHome();toast('🗑️','Notice removed')}
+
+/* ─── MEMBER MODAL ─── */
+function openAddMember(){
+  editMemberId=null;
+  document.getElementById('mo-mem-title').textContent='✦ Add New Member';
+  document.getElementById('mm-save-btn').textContent='Save Member';
+  ['mm-name','mm-phone','mm-loan','mm-sav','mm-pass'].forEach(id=>{
+    const el=document.getElementById(id);el.value='';el.classList.remove('ok','err');
+  });
+  document.getElementById('mm-pc').textContent='0/10';
+  document.getElementById('mm-name-h').textContent='';
+  document.getElementById('mm-phone-h').textContent='Enter 10-digit mobile number';
+  document.getElementById('mm-phone-h').className='fh fh-i';
+  document.getElementById('mm-loan-h').textContent='';
+  document.getElementById('mo-member').classList.add('on');
+  setTimeout(()=>document.getElementById('mm-name').focus(),80);
+}
+function openEditMember(id){
+  const m=members.find(x=>x.id===id);if(!m)return;
+  editMemberId=id;
+  document.getElementById('mo-mem-title').textContent='✎ Edit Member';
+  document.getElementById('mm-save-btn').textContent='Update Member';
+  document.getElementById('mm-name').value=m.name;
+  document.getElementById('mm-phone').value=m.phone;
+  document.getElementById('mm-loan').value=m.loan;
+  document.getElementById('mm-sav').value=m.savings||'';
+  document.getElementById('mm-pass').value='';
+  valPhone(document.getElementById('mm-phone'));
+  valName(document.getElementById('mm-name'));
+  valLoan(document.getElementById('mm-loan'));
+  document.getElementById('mo-member').classList.add('on');
+}
+
+function valName(el){
+  const h=document.getElementById('mm-name-h');
+  if(!el.value.trim()){el.classList.remove('ok','err');h.textContent='';return}
+  if(el.value.trim().length<2){el.classList.add('err');el.classList.remove('ok');h.textContent='✗ Name too short';h.className='fh fh-e';}
+  else{el.classList.add('ok');el.classList.remove('err');h.textContent='';h.className='fh';}
+}
+function valPhone(el){
+  el.value=el.value.replace(/\D/g,'').slice(0,10);
+  const len=el.value.length;
+  const ctr=document.getElementById('mm-pc');const h=document.getElementById('mm-phone-h');
+  ctr.textContent=`${len}/10`;
+  if(len===0){ctr.style.color='var(--tx3)';el.classList.remove('ok','err');h.textContent='Enter 10-digit mobile number';h.className='fh fh-i';}
+  else if(len<10){ctr.style.color='var(--go)';el.classList.remove('ok','err');h.textContent=`${10-len} more digit${10-len>1?'s':''} needed`;h.className='fh fh-i';}
+  else if(isValidPhone(el.value)){ctr.style.color='var(--em)';el.classList.add('ok');el.classList.remove('err');h.textContent='✓ Valid number';h.className='fh fh-o';}
+  else{ctr.style.color='var(--rd)';el.classList.add('err');el.classList.remove('ok');h.textContent='✗ Must start with 6,7,8 or 9';h.className='fh fh-e';}
+}
+function valLoan(el){
+  const h=document.getElementById('mm-loan-h');
+  if(!el.value){el.classList.remove('ok','err');h.textContent='';return}
+  if(Number(el.value)<=0){el.classList.add('err');el.classList.remove('ok');h.textContent='✗ Enter positive amount';h.className='fh fh-e';}
+  else{el.classList.add('ok');el.classList.remove('err');h.textContent=`EMI ≈ ${fmtA(emi(el.value))}/month`;h.className='fh fh-o';}
+}
+
+function saveMember(){
+  const name=document.getElementById('mm-name').value.trim();
+  const phone=document.getElementById('mm-phone').value.trim();
+  const loan=document.getElementById('mm-loan').value.trim();
+  const savings=document.getElementById('mm-sav').value.trim()||'500';
+  const pass=document.getElementById('mm-pass').value.trim();
+  let ok=true;
+  if(name.length<2){document.getElementById('mm-name').classList.add('err');document.getElementById('mm-name-h').textContent='✗ Required';document.getElementById('mm-name-h').className='fh fh-e';ok=false}
+  if(!isValidPhone(phone)){document.getElementById('mm-phone').classList.add('err');document.getElementById('mm-phone-h').textContent='✗ Invalid phone';document.getElementById('mm-phone-h').className='fh fh-e';ok=false}
+  if(!loan||Number(loan)<=0){document.getElementById('mm-loan').classList.add('err');document.getElementById('mm-loan-h').textContent='✗ Required';document.getElementById('mm-loan-h').className='fh fh-e';ok=false}
+  if(!editMemberId&&!pass){toast('⚠️','Password is required for new member');ok=false}
+  if(!ok){toast('⚠️','Please fix errors');return}
+  if(editMemberId){
+    const m=members.find(x=>x.id===editMemberId);
+    m.name=name;m.phone=phone;m.loan=loan;m.savings=savings;
+    if(pass)m.pass=pass;
+    toast('✅',`${name} updated`);
+  } else {
+    members.push({id:uid(),memberId:'MEM-'+String(members.length+1).padStart(5,'0'),name,phone,loan,savings,pass,payments:{}});
+    toast('🎉',`${name} added`);
+  }
+  save('ssn-members',members);closeMo('mo-member');renderMembersTable('');renderOverview();refreshHome();
+}
+
+function deleteMember(id){
+  const m=members.find(x=>x.id===id);if(!m)return;
+  if(!confirm(`Delete "${m.name}"? Cannot be undone.`))return;
+  members=members.filter(x=>x.id!==id);save('ssn-members',members);renderMembersTable('');renderOverview();toast('🗑️',`${m.name} removed`);
+}
+
+/* ─── PAYMENT MODAL ─── */
+function openPayModal(memberId,month){
+  const m=members.find(x=>x.id===memberId);if(!m)return;
+  payState={memberId,month};
+  const idx=MONTHS.indexOf(month);
+  const p=getPay(m,activeAdminYear,month);
+  const e=emi(m.loan);
+  const has=p&&Number(p.amount)>0;
+  const full=has&&Number(p.amount)>=e;
+  const part=has&&!full;
+  document.getElementById('pm-title').textContent=`${MFULL[idx]} Payment`;
+  document.getElementById('pm-meta').textContent=`${m.name} · ${activeAdminYear} · EMI: ${fmtA(e)}`;
+  const badge=document.getElementById('pm-badge');
+  badge.className='pmbadge '+(full?'pb-paid':part?'pb-partial':'pb-unpaid');
+  badge.textContent=full?'✓ Paid':part?'~ Partial':'Unpaid';
+  const sum=document.getElementById('pm-sum');
+  if(has){
+    sum.style.display='grid';
+    document.getElementById('pms-a').textContent=fmtA(p.amount);
+    document.getElementById('pms-d').textContent=p.date?fmtD(p.date):'No date';
+    document.getElementById('pms-e').textContent=fmtA(e);
+    const bal=e-Number(p.amount);
+    const bEl=document.getElementById('pms-b');bEl.textContent=bal<=0?'Fully Paid ✓':fmtA(bal);bEl.className='psv '+(bal<=0?'psv-g':'psv-r');
+  } else sum.style.display='none';
+  document.getElementById('pm-amt').value=p?p.amount:'';
+  document.getElementById('pm-date').value=p?(p.date?new Date(p.date).toISOString().slice(0,10):''):'';
+  document.getElementById('pm-notes').value=p?(p.notes||''):'';
+  document.getElementById('pm-clear').style.display=has?'inline-flex':'none';
+  document.getElementById('pm-bal-hint').textContent='';
+  document.getElementById('mo-pay').classList.add('on');
+  setTimeout(()=>document.getElementById('pm-amt').focus(),80);
+}
+function onPmAmt(){
+  const memberId=payState.memberId;const m=members.find(x=>x.id===memberId);if(!m)return;
+  const e=emi(m.loan);const val=Number(document.getElementById('pm-amt').value)||0;
+  const badge=document.getElementById('pm-badge');const hint=document.getElementById('pm-bal-hint');
+  if(val<=0){badge.className='pmbadge pb-unpaid';badge.textContent='Unpaid';hint.textContent='';}
+  else if(val>=e){badge.className='pmbadge pb-paid';badge.textContent='✓ Paid';hint.textContent='';}
+  else{badge.className='pmbadge pb-partial';badge.textContent='~ Partial';hint.textContent=`Balance: ${fmtA(e-val)}`;hint.className='fh fh-i';}
+}
+function savePayment(){
+  const{memberId,month}=payState;const m=members.find(x=>x.id===memberId);if(!m)return;
+  const amount=Number(document.getElementById('pm-amt').value);
+  if(!amount||amount<=0){toast('⚠️','Enter a valid amount');return}
+  const date=document.getElementById('pm-date').value||null;
+  const notes=document.getElementById('pm-notes').value.trim()||null;
+  ensurePay(m,activeAdminYear);
+  m.payments[activeAdminYear][month]={amount,date,notes};
+  save('ssn-members',members);closeMo('mo-pay');renderLoansTable();renderOverview();
+  toast('💰',`${month} ${activeAdminYear} saved for ${m.name}`);
+}
+function clearPayment(){
+  const{memberId,month}=payState;const m=members.find(x=>x.id===memberId);if(!m)return;
+  if(!confirm(`Clear ${month} payment for ${m.name}?`))return;
+  if(m.payments?.[activeAdminYear])delete m.payments[activeAdminYear][month];
+  save('ssn-members',members);closeMo('mo-pay');renderLoansTable();
+  toast('↩️','Payment cleared');
+}
+
+/* ─── MEMBER PORTAL ─── */
+function renderMemberPortal(memberId){
+  const m=members.find(x=>x.id===memberId);if(!m)return;
+  document.getElementById('mem-sidebar-av').textContent=inits(m.name);
+  document.getElementById('mem-sidebar-av').style.background=avCol(m.name);
+  document.getElementById('mem-sidebar-name').textContent=m.name;
+  document.getElementById('mem-sidebar-id').textContent=m.memberId;
+  document.getElementById('mem-topbar-name').textContent=m.name;
+  // year tabs
+  const yc=document.getElementById('mem-ytabs');
+  yc.innerHTML=years.map(y=>`<button class="yt ${y===activeMemberYear?'on':''}" onclick="setMemYear(${y})">${y}</button>`).join('');
+  renderMyLoan(memberId);
+}
+function setMemYear(y){
+  activeMemberYear=y;
+  document.querySelectorAll('#mem-ytabs .yt').forEach(t=>t.classList.toggle('on',Number(t.textContent)===y));
+  document.getElementById('ml-year-lbl').textContent=y;
+  renderMyLoan(currentUser.id);
+}
+function showMPanel(el,name){
+  document.querySelectorAll('#pg-member .ni').forEach(n=>n.classList.remove('on'));el.classList.add('on');
+  document.querySelectorAll('#pg-member .panel').forEach(p=>p.classList.remove('on'));
+  document.getElementById('panel-'+name).classList.add('on');
+  const titles={mloan:'My Loan',mhistory:'Payment History',mprofile:'My Profile'};
+  document.getElementById('member-title').textContent=titles[name]||'';
+  const m=members.find(x=>x.id===currentUser?.id);if(!m)return;
+  if(name==='mhistory')renderMemberHistory(m);
+  if(name==='mprofile')renderMemberProfile(m);
+}
+
+function renderMyLoan(memberId){
+  const m=members.find(x=>x.id===memberId);if(!m)return;
+  const e=emi(m.loan);
+  const pays=m.payments?.[activeMemberYear]||{};
+  const paidMos=MONTHS.filter(mo=>pays[mo]?.amount>0);
+  const totalPaid=paidMos.reduce((s,mo)=>s+Number(pays[mo].amount),0);
+  const bal=Math.max(0,Number(m.loan)-totalPaid);
+  const pct=Math.round((paidMos.length/12)*100);
+  document.getElementById('ml-amount').textContent=fmtA(m.loan);
+  document.getElementById('ml-meta').textContent=`${m.memberId} · Sree Shanthi Nagar Society`;
+  document.getElementById('ml-emi').textContent=fmtA(e);
+  document.getElementById('ml-paid').textContent=`${paidMos.length}/12`;
+  document.getElementById('ml-bal').textContent=fmtA(bal);
+  document.getElementById('ml-year-lbl').textContent=activeMemberYear;
+  // ring
+  const circ=201.1;document.getElementById('ml-ring').style.strokeDashoffset=circ-(circ*pct/100);
+  document.getElementById('ml-pct').textContent=pct+'%';
+  // emi details
+  document.getElementById('ml-emi-details').innerHTML=`
+    <div style="font-weight:700;font-size:13px;margin-bottom:9px">EMI Summary — ${activeMemberYear}</div>
+    ${[['Total Loan',fmtA(m.loan),''],['Monthly EMI',fmtA(e),''],['Amount Paid',fmtA(totalPaid),'var(--em)'],['Balance Due',fmtA(bal),'var(--rd)']].map(([l,v,c])=>`
+    <div style="display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px solid var(--bd)">
+      <span style="color:var(--tx2)">${l}</span>
+      <span style="font-weight:700;font-family:'JetBrains Mono',monospace;color:${c||'var(--tx)'}">${v}</span>
+    </div>`).join('')}`;
+  // schedule
+  const sc=document.getElementById('ml-schedule');
+  sc.innerHTML=MONTHS.map((mo,i)=>{
+    const p=pays[mo];const has=p&&Number(p.amount)>0;const full=has&&Number(p.amount)>=e;const part=has&&!full;
+    const cls=full?'paid':part?'partial':'unpaid';
+    const cols={paid:'var(--em)',partial:'var(--go)',unpaid:'var(--tx3)'};
+    return`<div class="ph-item">
+      <div class="ph-m ${cls}">${mo}</div>
+      <div style="flex:1"><div style="font-weight:600;font-size:12px">${MFULL[i]} ${activeMemberYear}</div>
+      <div style="font-size:11px;color:var(--tx3)">${has?(p.date?`Paid on ${fmtD(p.date)}`:'Date not recorded'):'Not paid yet'}</div></div>
+      <div style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;color:${cols[cls]}">${has?fmtA(p.amount):'—'}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderMemberHistory(m){
+  const el=document.getElementById('ml-history');
+  const all=[];const e=emi(m.loan);
+  Object.entries(m.payments||{}).forEach(([yr,mos])=>Object.entries(mos||{}).forEach(([mo,p])=>{if(p?.amount>0)all.push({yr,mo,p})}));
+  all.sort((a,b)=>b.yr-a.yr||(MONTHS.indexOf(b.mo)-MONTHS.indexOf(a.mo)));
+  if(!all.length){el.innerHTML='<div class="empty"><div class="empty-i">📅</div><p>No payments recorded yet</p></div>';return}
+  el.innerHTML=all.map(({yr,mo,p})=>{
+    const full=Number(p.amount)>=e;const cls=full?'paid':'partial';
+    const c=full?'var(--em)':'var(--go)';
+    return`<div class="ph-item">
+      <div class="ph-m ${cls}">${mo}</div>
+      <div style="flex:1"><div style="font-weight:600;font-size:12px">${MFULL[MONTHS.indexOf(mo)]} ${yr}</div>
+      <div style="font-size:11px;color:var(--tx3)">${p.date?`Paid on ${fmtD(p.date)}`:'Date not recorded'}${p.notes?` · ${p.notes}`:''}</div></div>
+      <div style="font-family:'JetBrains Mono',monospace;font-weight:700;font-size:13px;color:${c}">${fmtA(p.amount)}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderMemberProfile(m){
+  const e=emi(m.loan);
+  document.getElementById('ml-profile').innerHTML=`
+    <div style="display:flex;align-items:center;gap:18px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--bd)">
+      <div style="width:68px;height:68px;border-radius:16px;background:${avCol(m.name)};display:grid;place-items:center;font-size:26px;font-weight:700;color:#fff">${inits(m.name)}</div>
+      <div><div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700">${esc(m.name)}</div><div style="color:var(--sf);font-size:12px;font-weight:600;margin-top:2px">${esc(m.memberId)}</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+      ${[['Phone Number',m.phone,'mono',''],['Monthly Savings',fmtA(m.savings),'mono em',''],['Loan Amount',fmtA(m.loan),'mono go',''],['Monthly EMI',fmtA(e),'mono sf',''],['Loan Status','Active','','']].map(([l,v,cls])=>`
+      <div>
+        <div style="font-size:9px;text-transform:uppercase;letter-spacing:.7px;color:var(--tx3);font-weight:700;margin-bottom:4px">${l}</div>
+        <div style="font-size:14px;font-weight:700;${cls.includes('mono')?'font-family:\'JetBrains Mono\',monospace;':''} ${cls.includes('em')?'color:var(--em)':cls.includes('go')?'color:var(--go)':cls.includes('sf')?'color:var(--sf)':''}">${v}</div>
+      </div>`).join('')}
+    </div>
+    <div style="margin-top:22px;padding:13px;background:var(--sf-l);border:1px solid rgba(232,101,10,.2);border-radius:9px;font-size:12px;color:var(--tx2)">
+      🔐 To change your password or update details, contact the society secretary.
+    </div>`;
+}
+
+/* ─── MODAL HELPERS ─── */
+function closeMo(id){document.getElementById(id).classList.remove('on')}
+function closeMoOutside(e,id){if(e.target.id===id)closeMo(id)}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.mo.on').forEach(m=>m.classList.remove('on'))});
+
+/* ─── INIT ─── */
+refreshHome();
+// Fix: ensure nav starts transparent on home
+document.getElementById('nav').className='tr';
+</script>
+</body>
+</html>
